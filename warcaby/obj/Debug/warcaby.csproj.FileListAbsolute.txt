@@ -1,0 +1,7 @@
+J:\warcaby\warcaby\warcaby\bin\Debug\warcaby.exe.config
+J:\warcaby\warcaby\warcaby\bin\Debug\warcaby.exe
+J:\warcaby\warcaby\warcaby\bin\Debug\warcaby.pdb
+J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.csprojAssemblyReference.cache
+J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.csproj.CoreCompileInputs.cache
+J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.exe
+J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.pdb
