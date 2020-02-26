@@ -12,6 +12,7 @@ namespace warcaby
         public Algorytm alg;
         public Board brd;
         public Player play, ai;
+        public int end; //-1 dla ai, 0 ogólnie i 1 dla gracza
         public Oper(Operating opera, Algorytm alg, Board brd, Player play, Player ai)
         {
             this.opera = opera;
@@ -19,11 +20,9 @@ namespace warcaby
             this.brd = brd;
             this.play = play;
             this.ai = ai;
+            end = 0;
         }
 
-        public void BothMoves()
-        {
-
-        }
+        
     }
 }

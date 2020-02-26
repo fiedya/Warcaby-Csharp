@@ -34,13 +34,18 @@ namespace warcaby
 
 
             operabrd.PrintBoard(playCheq, aiCheq, turn);
-            int x = 1;
-            while( aiCheq>0 || playCheq> 0)
+            while (opera.end == 0)
             {
-                opera.PlayerMove(forePlayer, foreAI);
-                alg.MoveAi();
-                x++;
+                opera.BothMoves(forePlayer, foreAI,alg);
+                opera.operabrd.PrintBoard(play.cheqs, ai.cheqs, opera.turn);
             }
+            string winner = "";
+            if (opera.end == -1) winner = "Komputer!";
+            else if (opera.end == 1) winner = "Ty!";
+            Console.ResetColor();
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(winner);
             Console.ReadKey();
         }
     }

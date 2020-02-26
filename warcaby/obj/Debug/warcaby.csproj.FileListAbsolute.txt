@@ -5,3 +5,10 @@ J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.csprojAssemblyReference.cache
 J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.csproj.CoreCompileInputs.cache
 J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.exe
 J:\warcaby\warcaby\warcaby\obj\Debug\warcaby.pdb
+J:\WŁASNE\Warcaby\Warcaby-Csharp\warcaby\obj\Debug\warcaby.csprojAssemblyReference.cache
+J:\WŁASNE\Warcaby\Warcaby-Csharp\warcaby\obj\Debug\warcaby.csproj.CoreCompileInputs.cache
+J:\WŁASNE\Warcaby\Warcaby-Csharp\warcaby\obj\Debug\warcaby.exe
+J:\WŁASNE\Warcaby\Warcaby-Csharp\warcaby\obj\Debug\warcaby.pdb
+J:\WŁASNE\Warcaby\Warcaby-Csharp\warcaby\bin\Debug\warcaby.exe.config
+J:\WŁASNE\Warcaby\Warcaby-Csharp\warcaby\bin\Debug\warcaby.exe
+J:\WŁASNE\Warcaby\Warcaby-Csharp\warcaby\bin\Debug\warcaby.pdb

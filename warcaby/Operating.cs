@@ -10,8 +10,9 @@ namespace warcaby
     {
         public Board brd;
         public OperatingBoard operabrd;
-        int playCheq, aiCheq;
-        int turn;
+        public int playCheq, aiCheq;
+        public int turn;
+        public int end; //-1 dla ai, 0 ogólnie i 1 dla gracza
         public Operating(Board brd, OperatingBoard operabrd, int playCheq, int aiCheq, int turn)
         {
             this.turn = turn;
@@ -19,7 +20,28 @@ namespace warcaby
             this.operabrd = operabrd;
             this.playCheq = playCheq;
             this.aiCheq = aiCheq;
+            end = 0;
         }
+
+        public void BothMoves(ConsoleColor col, ConsoleColor enemy, Algorytm alg)
+        {
+            if (turn % 2 == 1)
+            {
+                //gracz
+                PlayerMove(col, enemy);
+                if (aiCheq == 0) end = 1;
+            }
+            else if (turn % 2 == 0)
+            {
+                //komp
+                if (playCheq == 0) end = -1;
+                alg.MoveAi();
+            }
+
+
+        }
+
+
 
         public void PlayerMove(ConsoleColor col, ConsoleColor enemy)
         {
@@ -41,15 +63,13 @@ namespace warcaby
 
             MoveTile(ox, oy, nx, ny, col, enemy);
 
-            operabrd.PrintBoard(playCheq, aiCheq, turn);
-            
         }
 
         public void MoveTile(int ox,int oy,int nx,int ny, ConsoleColor col, ConsoleColor enemy)
         {
             bool wannaKill = false;
             bool mayKill = false;
-            if (brd.board[ox, oy].value == "()" && brd.board[ox, oy].playerColor == col)
+            if ((brd.board[ox, oy].value == "()" || brd.board[ox, oy].value == "[]") && brd.board[ox, oy].playerColor == col)
             {
                 if(IsAvaible(ox, oy, nx, ny))
                 {
@@ -67,23 +87,24 @@ namespace warcaby
                                 aiCheq--;
                                 brd.board[ox, oy].color = ConsoleColor.Yellow;
                                 brd.board[ox, oy].playerColor = ConsoleColor.Black;
-                                brd.board[ox, oy].value = "  ";
                                 brd.board[nx, ny].color = ConsoleColor.Yellow;
                                 brd.board[nx, ny].playerColor = col;
-                                brd.board[nx, ny].value = "()";
+                                if (brd.board[ox, oy].value == "()")brd.board[nx, ny].value = "()";
+                                else if (brd.board[ox, oy].value == "[]") brd.board[nx, ny].value = "[]";
+                                brd.board[ox, oy].value = "  ";
                             }
                             else if (col == ConsoleColor.DarkBlue)
                             {
                                 playCheq--;
                                 brd.board[ox, oy].color = ConsoleColor.Yellow;
                                 brd.board[ox, oy].playerColor = ConsoleColor.Black;
-                                brd.board[ox, oy].value = "  ";
                                 brd.board[nx, ny].color = ConsoleColor.Yellow;
                                 brd.board[nx, ny].playerColor = col;
-                                brd.board[nx, ny].value = "()";
+                                if (brd.board[ox, oy].value == "()") brd.board[nx, ny].value = "()";
+                                else if (brd.board[ox, oy].value == "[]") brd.board[nx, ny].value = "[]";
+                                brd.board[ox, oy].value = "  ";
                             }
-                           
-                            turn++;
+
                         }
                         
                     }
@@ -91,10 +112,11 @@ namespace warcaby
                     {
                         brd.board[ox, oy].color = ConsoleColor.Yellow;
                         brd.board[ox, oy].playerColor = ConsoleColor.Black;
-                        brd.board[ox, oy].value = "  ";
                         brd.board[nx, ny].color = ConsoleColor.Yellow;
                         brd.board[nx, ny].playerColor = col;
-                        brd.board[nx, ny].value = "()";
+                        if (brd.board[ox, oy].value == "()") brd.board[nx, ny].value = "()";
+                        else if (brd.board[ox, oy].value == "[]") brd.board[nx, ny].value = "[]";
+                        brd.board[ox, oy].value = "  ";
                         turn++;
                     }
 
@@ -108,16 +130,10 @@ namespace warcaby
 
         }
 
-        public void BothMove(ConsoleColor pColor, ConsoleColor cColor)
-        {
-                       PlayerMove(pColor, cColor);
-            PlayerMove(cColor, pColor);
-        }
-
         public bool IsAvaible(int ox, int oy, int nx, int ny)
         {
             if (ny > 7 || ny < 0 || nx > 7 || nx < 0) return false;
-            if (brd.board[nx, ny].value == "()") return false;
+            if (brd.board[nx, ny].value == "()" || brd.board[nx, ny].value == "[]") return false;
             if (brd.board[nx, ny].color != ConsoleColor.Yellow) return false;
             if (Math.Abs(ox - nx) > 2 || Math.Abs(oy - ny) > 2) return false;
             return true;
@@ -126,13 +142,13 @@ namespace warcaby
         public bool IsPlayerInNeigh(int nx, int ny,  ConsoleColor playColor)
         {
             if(ny > 7 || ny < 0 || nx > 7 || nx < 0) return false;
-            if (brd.board[nx, ny].value == "()" && brd.board[nx, ny].playerColor == playColor) return true;
+            if ((brd.board[nx, ny].value == "()" || brd.board[nx, ny].value == "[]") && brd.board[nx, ny].playerColor == playColor) return true;
             else return false;
         }
         public bool isSecFree(int x, int y)
         {
             if (y > 7 || y < 0 || x > 7 || x < 0) return false;
-            if (brd.board[x, y].value == "  " && brd.board[x, y].color ==ConsoleColor.Yellow) return true;
+            if ((brd.board[x, y].value == "()" || brd.board[x, y].value == "[]") && brd.board[x, y].color ==ConsoleColor.Yellow) return true;
             else return false;
         }
 
@@ -140,7 +156,7 @@ namespace warcaby
         public bool MayKill(int ox, int oy, int nx, int ny, ConsoleColor enemy)
         {
 
-                if (brd.board[(ox + nx) / 2, (oy + ny) / 2].value == "()"
+                if ((brd.board[(ox + nx) / 2, (oy + ny) / 2].value == "()" || brd.board[(ox + nx) / 2, (oy + ny) / 2].value == "[]")
                     && brd.board[(ox + nx) / 2, (oy + ny) / 2].playerColor == enemy)//pomiędzy jest enemy
                    {
                         brd.board[(ox + nx) / 2, (oy + ny) / 2].playerColor = ConsoleColor.Black;

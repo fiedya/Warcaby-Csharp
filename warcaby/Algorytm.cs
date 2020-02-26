@@ -12,6 +12,7 @@ namespace warcaby
         Player play, ai;
         Operating opera;
         ConsoleColor aiColor, playColor;
+        int turn;
         public Algorytm(Board brd, Player play, Player ai, Operating opera, ConsoleColor aiColor, ConsoleColor playColor)
         {
             this.brd = brd;
@@ -20,6 +21,7 @@ namespace warcaby
             this.opera = opera;
             this.aiColor = aiColor;
             this.playColor = playColor;
+            turn = opera.turn;
         }
 
         public void MoveAi()
@@ -36,6 +38,7 @@ namespace warcaby
             }
 
             AllMoves(ch);
+            turn++;
         }
 
         public List<One> FindMovesForOne(One tile, List<One> av)
@@ -71,14 +74,6 @@ namespace warcaby
                 temp.Add(cheqs[i]);
                 FindMovesForOne(cheqs[i], temp);
                 cheqsWithMoves.Add(temp);
-            }
-
-            foreach (var t in cheqsWithMoves)
-            {
-                foreach (var c in t)
-                    Console.Write((c.x+1) + "," + (c.y+1) + "||");
-
-                Console.WriteLine();
             }
 
             opera.PlayerMove(aiColor, playColor);

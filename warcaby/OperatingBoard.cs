@@ -59,7 +59,7 @@ namespace warcaby
 
                             else if (i>(h-3) && brd.board[i, j].color == backOne)
                             {
-                                brd.board[i, j] = new One(i, j, "()", backOne, foreTwo);
+                                brd.board[i, j] = new One(i, j, "[]", backOne, foreTwo);
                             }
 
 
@@ -88,7 +88,7 @@ namespace warcaby
             Console.WriteLine(" A B C D E F G H");
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Tura: "+turn+".\nDark Magenta zostało: " + playCheq + ". Dark Blue zostało: " + aiCheq+".");
+            Console.WriteLine("Tura: "+turn+".");
         }
 
 

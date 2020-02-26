@@ -61,6 +61,7 @@
     <Compile Include="Algorytm.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="One.cs" />
+    <Compile Include="Oper.cs" />
     <Compile Include="Operating.cs" />
     <Compile Include="OperatingBoard.cs" />
     <Compile Include="Player.cs" />
